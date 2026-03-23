@@ -13,5 +13,6 @@ test("notes, photos, and contact sections mark themselves as ready", async ({ pa
 
   await expect(page.locator('[data-section="notes"]')).toHaveAttribute("data-reveal-ready", "true");
   await expect(page.locator('[data-section="photos"]')).toHaveAttribute("data-reveal-ready", "true");
+  await expect(page.locator('[data-section="contact"]')).toHaveAttribute("data-reveal-ready", "true");
   await expect(page.getByRole("link", { name: "hello@example.com" })).toBeVisible();
 });
