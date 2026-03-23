@@ -1,5 +1,11 @@
 import { siteContent } from "../data/site-content.js";
 
+const normalizedBaseUrl = (import.meta.env.BASE_URL || "/").replace(/\/?$/, "/");
+
+function withBase(pathname) {
+  return `${normalizedBaseUrl}${pathname.replace(/^\/+/, "")}`;
+}
+
 export function renderSections() {
   document.querySelector('[data-section="hero"]').innerHTML = `
     <div class="hero-copy">
@@ -48,7 +54,7 @@ export function renderSections() {
               <p class="system-label">${note.date}</p>
               <h3>${note.title}</h3>
               <p>${note.excerpt}</p>
-              <a href="/notes/${note.slug}/">进入全文</a>
+              <a href="${withBase(`notes/${note.slug}/`)}">进入全文</a>
             </article>
           `
         )

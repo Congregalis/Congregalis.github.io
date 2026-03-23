@@ -29,3 +29,70 @@ h3 {
   font-family: "Instrument Serif", serif;
   font-weight: 400;
 }
+
+.notes-timeline {
+  display: grid;
+  gap: clamp(16px, 2.8vw, 24px);
+  position: relative;
+  padding-left: clamp(18px, 3vw, 28px);
+}
+
+.notes-timeline::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: linear-gradient(180deg, rgba(141, 247, 227, 0.45), rgba(141, 247, 227, 0.08));
+}
+
+[data-section="notes"] .timeline-note {
+  position: relative;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.02)),
+    rgba(8, 13, 17, 0.76);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 18px 40px rgba(0, 0, 0, 0.26);
+  padding: clamp(16px, 2.4vw, 22px);
+}
+
+[data-section="notes"] .timeline-note::before {
+  content: "";
+  position: absolute;
+  left: calc(clamp(18px, 3vw, 28px) * -1);
+  top: 20px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid rgba(141, 247, 227, 0.65);
+  background: rgba(141, 247, 227, 0.32);
+  box-shadow: 0 0 16px rgba(141, 247, 227, 0.35);
+}
+
+[data-section="notes"] .timeline-note .system-label {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+[data-section="notes"] .timeline-note h3 {
+  margin: 0.3rem 0 0;
+  font-size: clamp(1.4rem, 2.8vw, 2.1rem);
+}
+
+[data-section="notes"] .timeline-note p {
+  margin: 0.7rem 0 0;
+  color: var(--color-text-muted);
+}
+
+[data-section="notes"] .timeline-note a {
+  margin-top: 0.95rem;
+  display: inline-flex;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(141, 247, 227, 0.55);
+  padding-bottom: 2px;
+  color: var(--color-text);
+}

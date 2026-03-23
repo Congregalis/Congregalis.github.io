@@ -30,6 +30,11 @@ test("project CTA can anchor to the contact section", async ({ page }) => {
 
 test("home timeline links open the full note page", async ({ page }) => {
   await page.goto("/");
+  const basePrefix = await page.evaluate(() => window.location.pathname);
+  await expect(page.getByRole("link", { name: /进入全文/i }).first()).toHaveAttribute(
+    "href",
+    `${basePrefix}notes/field-observation-01/`
+  );
   await page.getByRole("link", { name: /进入全文/i }).first().click();
-  await expect(page).toHaveURL(/\/notes\//);
+  await expect(page).toHaveURL(new RegExp(`${basePrefix}notes/`));
 });
