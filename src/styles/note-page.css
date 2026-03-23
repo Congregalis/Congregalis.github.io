@@ -1,0 +1,81 @@
+.note-page {
+  width: min(840px, max(0px, calc(100vw - 48px)));
+  margin: clamp(48px, 8vw, 84px) auto;
+  display: grid;
+  gap: clamp(20px, 3.2vw, 30px);
+}
+
+.note-hero h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 5.4vw, 4.2rem);
+  line-height: 0.94;
+}
+
+.note-hero .system-label {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.note-claw-intro {
+  margin: 0.9rem 0 0;
+  color: var(--color-text-muted);
+}
+
+.note-hero a {
+  margin-top: 1.1rem;
+  display: inline-flex;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.44);
+  padding-bottom: 2px;
+}
+
+.note-progress {
+  height: 4px;
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg, rgba(141, 247, 227, 0.7), rgba(141, 247, 227, 0.28)),
+    rgba(255, 255, 255, 0.08);
+}
+
+.note-body {
+  display: grid;
+  gap: 1rem;
+}
+
+.note-body p {
+  margin: 0;
+  max-width: 62ch;
+  color: rgba(234, 236, 238, 0.92);
+  line-height: 1.8;
+}
+
+.note-nav {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.note-nav > * {
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(10, 14, 18, 0.56);
+  min-height: 44px;
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+}
+
+.note-nav span {
+  opacity: 0.55;
+}
+
+@media (max-width: 767px) {
+  .note-page {
+    width: min(840px, max(0px, calc(100vw - 32px)));
+    margin: 36px auto 52px;
+  }
+
+  .note-nav {
+    grid-template-columns: 1fr;
+  }
+}

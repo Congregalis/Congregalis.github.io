@@ -40,9 +40,18 @@ export function renderSections() {
   `;
 
   document.querySelector('[data-section="notes"]').innerHTML = `
-    <div class="section-shell notes-shell">
+    <div class="section-shell notes-timeline" id="notes" data-notes-timeline>
       ${siteContent.notes
-        .map((note) => `<article data-note-card><h3>${note.title}</h3><p>${note.excerpt}</p></article>`)
+        .map(
+          (note) => `
+            <article class="timeline-note" data-note-card>
+              <p class="system-label">${note.date}</p>
+              <h3>${note.title}</h3>
+              <p>${note.excerpt}</p>
+              <a href="/notes/${note.slug}/">进入全文</a>
+            </article>
+          `
+        )
         .join("")}
     </div>
   `;

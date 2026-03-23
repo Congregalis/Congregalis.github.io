@@ -27,3 +27,9 @@ test("project CTA can anchor to the contact section", async ({ page }) => {
   await page.locator('[data-project-card] a[href="#contact"]').first().click();
   await expect(page).toHaveURL(/#contact$/);
 });
+
+test("home timeline links open the full note page", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("link", { name: /进入全文/i }).first().click();
+  await expect(page).toHaveURL(/\/notes\//);
+});
