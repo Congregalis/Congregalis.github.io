@@ -7,5 +7,15 @@
     "build": "vite build",
     "preview": "vite preview",
     "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@fontsource/ibm-plex-mono": "^5.2.7",
+    "@fontsource/instrument-serif": "^5.2.8",
+    "@fontsource/manrope": "^5.2.8",
+    "gsap": "^3.14.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "vite": "^8.0.1"
   }
 }
