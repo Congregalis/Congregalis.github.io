@@ -1,5 +1,6 @@
 {
   "name": "personal-site",
+  "description": "XXX / Claw Archive interactive personal site",
   "private": true,
   "type": "module",
   "scripts": {

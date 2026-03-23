@@ -24,3 +24,11 @@ test("root exposes dark chrome design tokens", async ({ page }) => {
   expect(bg).toBe("#0b1115");
   expect(signal).toBe("#8df7e3");
 });
+
+test("page exposes title and description metadata", async ({ page }) => {
+  await page.goto("/");
+  await expect(page).toHaveTitle(/Claw Archive/);
+
+  const description = await page.locator('meta[name="description"]').getAttribute("content");
+  expect(description).toContain("Claw");
+});
