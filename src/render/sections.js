@@ -7,7 +7,9 @@ export function renderSections() {
       <h1>${siteContent.profile.name}</h1>
       <p>${siteContent.profile.intro}</p>
     </div>
-    <div class="hero-core" data-hero-core></div>
+    <div class="hero-stage" aria-hidden="true">
+      <div class="hero-core" data-hero-core></div>
+    </div>
   `;
 
   document.querySelector('[data-section="projects"]').innerHTML = siteContent.projects

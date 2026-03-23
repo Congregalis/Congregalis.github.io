@@ -1,12 +1,110 @@
 [data-section="hero"] {
   min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.85fr);
+  align-items: center;
+  gap: clamp(28px, 6vw, 96px);
+  position: relative;
+  overflow: hidden;
+}
+
+[data-section="hero"]::before {
+  content: "";
+  position: absolute;
+  width: min(46vw, 520px);
+  aspect-ratio: 1;
+  right: -12%;
+  top: 10%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(141, 247, 227, 0.24), rgba(141, 247, 227, 0));
+  pointer-events: none;
+}
+
+.hero-copy {
+  max-width: 56ch;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-copy .eyebrow {
+  margin: 0 0 0.8rem;
+}
+
+.hero-copy h1 {
+  margin: 0;
+  font-size: clamp(2.6rem, 6.4vw, 5.8rem);
+  line-height: 0.94;
+}
+
+.hero-copy p {
+  margin: clamp(1rem, 2.6vw, 1.6rem) 0 0;
+  color: var(--color-text-muted);
+  max-width: 40ch;
+}
+
+.hero-stage {
+  display: grid;
+  place-items: center;
+  min-height: min(58vw, 560px);
+  position: relative;
+}
+
+.hero-stage::before,
+.hero-stage::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.hero-stage::before {
+  width: min(40vw, 420px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.hero-stage::after {
+  width: min(52vw, 540px);
+  aspect-ratio: 1;
+  background: radial-gradient(circle, rgba(141, 247, 227, 0.2), rgba(141, 247, 227, 0));
 }
 
 [data-hero-core] {
   width: min(34vw, 360px);
   aspect-ratio: 1;
   border-radius: 28px;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.04));
-  box-shadow: var(--shadow-panel);
+  background:
+    linear-gradient(150deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.06)),
+    radial-gradient(circle at 18% 15%, rgba(141, 247, 227, 0.4), rgba(141, 247, 227, 0));
+  box-shadow:
+    var(--shadow-panel),
+    0 0 120px rgba(141, 247, 227, 0.22);
   backdrop-filter: blur(14px);
+  position: relative;
+}
+
+[data-hero-core]::after {
+  content: "";
+  position: absolute;
+  inset: 12%;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0));
+}
+
+@media (max-width: 900px) {
+  [data-section="hero"] {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    align-content: center;
+  }
+
+  .hero-stage {
+    min-height: 0;
+    margin-bottom: 16px;
+  }
+
+  [data-hero-core] {
+    width: min(64vw, 330px);
+  }
 }
