@@ -13,3 +13,14 @@ test("hero registers motion state and exposes the floating core", async ({ page 
   await expect(page.locator("[data-hero-core]")).toBeVisible();
   await expect(page.locator('[data-section="hero"]')).toHaveAttribute("data-motion-ready", "true");
 });
+
+test("hero skips entry animation when prefers-reduced-motion is enabled", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+
+  const section = page.locator('[data-section="hero"]');
+  const core = page.locator("[data-hero-core]");
+
+  await expect(section).toHaveAttribute("data-motion-ready", "true");
+  await expect(core).not.toHaveAttribute("style", /opacity|transform/);
+});
