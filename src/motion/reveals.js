@@ -7,10 +7,10 @@ export function initReveals() {
     const section = document.querySelector(`[data-section="${name}"]`);
     if (!section) return;
 
-    section.dataset.revealReady = "true";
-
     const items = section.querySelectorAll("article, figure, .contact-block");
     if (items.length === 0) return;
+
+    section.dataset.revealReady = "true";
 
     gsap.from(items, {
       autoAlpha: 0,
