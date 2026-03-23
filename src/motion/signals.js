@@ -2,8 +2,10 @@ import { gsap, isReducedMotion } from "./motion-config.js";
 
 export function initSignals() {
   const section = document.querySelector('[data-section="signals"]');
-  const cards = gsap.utils.toArray("[data-signal-card]");
-  if (!section || cards.length === 0) return;
+  if (!section) return;
+
+  const cards = gsap.utils.toArray("[data-signal-card]", section);
+  if (cards.length === 0) return;
 
   section.dataset.signalsReady = "true";
 
