@@ -4,10 +4,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "sync:notes": "node scripts/sync-note-pages.mjs",
+    "dev": "npm run sync:notes && vite",
+    "build": "npm run sync:notes && vite build",
     "preview": "vite preview",
-    "test:e2e": "playwright test"
+    "test:e2e": "npm run sync:notes && playwright test"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
