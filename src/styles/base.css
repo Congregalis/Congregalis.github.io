@@ -1,14 +1,27 @@
-html, body {
-  margin: 0;
-  min-height: 100%;
+@import "@fontsource/instrument-serif";
+@import "@fontsource/manrope";
+@import "@fontsource/ibm-plex-mono";
+@import "./tokens.css";
+@import "./layout.css";
+@import "./components.css";
+@import "./sections.css";
+
+* {
+  box-sizing: border-box;
 }
 
 body {
-  background: #0f1418;
-  color: #f3f5f4;
+  margin: 0;
+  background:
+    radial-gradient(circle at top right, rgba(141, 247, 227, 0.06), transparent 20%),
+    linear-gradient(180deg, #0b1115 0%, #11171b 100%);
+  color: var(--color-text);
   font-family: "Manrope", sans-serif;
 }
 
-section {
-  min-height: 50vh;
+h1,
+h2,
+h3 {
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
 }
