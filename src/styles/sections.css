@@ -152,6 +152,7 @@
 }
 
 .project-card {
+  position: relative;
   border-radius: 18px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   background:
@@ -200,6 +201,11 @@
 
   .projects-corridor[data-layout="desktop"] .project-card {
     grid-area: 1 / 1;
+    pointer-events: none;
+  }
+
+  .projects-corridor[data-layout="desktop"] .project-card[data-card-active="true"] {
+    pointer-events: auto;
   }
 }
 
