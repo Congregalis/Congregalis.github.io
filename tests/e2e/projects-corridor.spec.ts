@@ -46,6 +46,7 @@ test("desktop corridor updates active project and keeps hit target aligned", asy
 test("desktop reduced-motion falls back to stacked layout", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
+  await expect(page.locator("body")).toHaveAttribute("data-motion-mode", "reduced");
   await expect(page.locator('[data-project-corridor]')).toHaveAttribute("data-layout", "stacked");
 });
 

@@ -1,13 +1,13 @@
-import { gsap, motionDefaults, isReducedMotion } from "./motion-config.js";
+import { gsap, motionDefaults } from "./motion-config.js";
 
-export function initHero() {
+export function initHero({ reducedMotion = false } = {}) {
   const section = document.querySelector('[data-section="hero"]');
   const core = document.querySelector("[data-hero-core]");
   if (!section || !core) return;
 
   section.dataset.motionReady = "true";
 
-  if (isReducedMotion) return;
+  if (reducedMotion) return;
 
   const tl = gsap.timeline({ defaults: motionDefaults });
   tl.fromTo(core, { scale: 0.82, autoAlpha: 0, rotation: -8 }, { scale: 1, autoAlpha: 1, rotation: 0 });

@@ -1,13 +1,20 @@
-import { gsap, isReducedMotion, projectCorridorBreakpoint } from "./motion-config.js";
+import { gsap, projectCorridorBreakpoint } from "./motion-config.js";
 
-export function initProjectsCorridor() {
+let projectsCorridorMedia = null;
+
+export function initProjectsCorridor({ reducedMotion = false } = {}) {
+  if (projectsCorridorMedia) {
+    projectsCorridorMedia.revert();
+    projectsCorridorMedia = null;
+  }
+
   const section = document.querySelector('[data-section="projects"]');
   const wrapper = document.querySelector("[data-project-corridor]");
+  if (!section || !wrapper) return;
+
   const cards = gsap.utils.toArray("[data-project-index]", wrapper);
+  if (cards.length === 0) return;
 
-  if (!section || !wrapper || cards.length === 0) return;
-
-  const mm = gsap.matchMedia();
   const setActiveCard = (activeIndex) => {
     wrapper.dataset.activeProject = String(activeIndex);
 
@@ -25,23 +32,27 @@ export function initProjectsCorridor() {
   const resetToStacked = () => {
     wrapper.dataset.layout = "stacked";
     wrapper.dataset.corridorReady = "true";
-    setActiveCard(0);
+    wrapper.dataset.activeProject = "0";
+
     gsap.set(cards, { clearProps: "all" });
     cards.forEach((card) => {
       card.dataset.cardActive = "false";
     });
   };
 
+  if (reducedMotion) {
+    resetToStacked();
+    return;
+  }
+
+  const mm = gsap.matchMedia();
+  projectsCorridorMedia = mm;
+
   mm.add(`(max-width: ${projectCorridorBreakpoint - 1}px)`, () => {
     resetToStacked();
   });
 
   mm.add(`(min-width: ${projectCorridorBreakpoint}px)`, () => {
-    if (isReducedMotion) {
-      resetToStacked();
-      return;
-    }
-
     wrapper.dataset.layout = "desktop";
     wrapper.dataset.corridorReady = "true";
 
@@ -68,6 +79,9 @@ export function initProjectsCorridor() {
   });
 
   return () => {
+    if (projectsCorridorMedia === mm) {
+      projectsCorridorMedia = null;
+    }
     mm.revert();
   };
 }

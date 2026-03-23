@@ -1,6 +1,6 @@
-import { gsap, isReducedMotion } from "./motion-config.js";
+import { gsap } from "./motion-config.js";
 
-export function initSignals() {
+export function initSignals({ reducedMotion = false } = {}) {
   const section = document.querySelector('[data-section="signals"]');
   if (!section) return;
 
@@ -9,7 +9,7 @@ export function initSignals() {
 
   section.dataset.signalsReady = "true";
 
-  if (isReducedMotion) {
+  if (reducedMotion) {
     gsap.set(cards, { autoAlpha: 1, y: 0 });
     return;
   }

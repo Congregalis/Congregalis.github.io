@@ -3,3 +3,10 @@ main > section[data-section] {
   margin: 0 auto;
   padding: 96px 0;
 }
+
+@media (max-width: 767px) {
+  main > section[data-section] {
+    width: min(1200px, max(0px, calc(100vw - 32px)));
+    padding: 72px 0;
+  }
+}

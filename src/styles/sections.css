@@ -144,11 +144,19 @@
   align-items: center;
 }
 
+body[data-motion-mode="reduced"] [data-section="projects"] .section-shell {
+  min-height: auto;
+}
+
 .projects-corridor {
   display: grid;
   gap: clamp(14px, 2.6vw, 24px);
   position: relative;
   perspective: 1200px;
+}
+
+body[data-motion-mode="reduced"] .projects-corridor {
+  perspective: none;
 }
 
 .project-card {

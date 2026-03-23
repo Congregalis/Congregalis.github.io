@@ -1,6 +1,6 @@
 import { gsap } from "./motion-config.js";
 
-export function initReveals() {
+export function initReveals({ reducedMotion = false } = {}) {
   const sections = ["notes", "photos", "contact"];
 
   sections.forEach((name) => {
@@ -11,6 +11,11 @@ export function initReveals() {
     if (items.length === 0) return;
 
     section.dataset.revealReady = "true";
+
+    if (reducedMotion) {
+      gsap.set(items, { autoAlpha: 1, y: 0 });
+      return;
+    }
 
     gsap.from(items, {
       autoAlpha: 0,
