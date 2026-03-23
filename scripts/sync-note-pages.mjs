@@ -1,15 +1,33 @@
 import { readdirSync } from "node:fs";
-import { mkdir, rm, writeFile } from "node:fs/promises";
+import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { notes } from "../src/content/notes.js";
 
 const notesRoot = resolve("notes");
+const generatedMarker = "generated-by-sync-note-pages";
+
+function serializeNote(note) {
+  return JSON.stringify(note)
+    .replace(/</g, "\\u003C")
+    .replace(/\u2028/g, "\\u2028")
+    .replace(/\u2029/g, "\\u2029");
+}
+
 await mkdir(notesRoot, { recursive: true });
 const expected = new Set(notes.map((note) => note.slug));
 
 for (const entry of readdirSync(notesRoot, { withFileTypes: true })) {
   if (entry.isDirectory() && !expected.has(entry.name)) {
-    await rm(resolve(notesRoot, entry.name), { recursive: true, force: true });
+    const existingIndex = resolve(notesRoot, entry.name, "index.html");
+    let isGeneratedByScript = false;
+    try {
+      const html = await readFile(existingIndex, "utf8");
+      isGeneratedByScript = html.includes(generatedMarker);
+    } catch {}
+
+    if (isGeneratedByScript) {
+      await rm(resolve(notesRoot, entry.name), { recursive: true, force: true });
+    }
   }
 }
 
@@ -21,10 +39,11 @@ for (const note of notes) {
     `<!doctype html>
 <html lang="zh-Hans">
   <head>
+    <!-- ${generatedMarker} -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>${note.title} / Claw Archive</title>
-    <script>window.__NOTE__ = ${JSON.stringify(note)};</script>
+    <script>window.__NOTE__ = ${serializeNote(note)};</script>
     <script type="module" src="/src/note-entry.js"></script>
   </head>
   <body>
