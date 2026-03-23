@@ -21,6 +21,6 @@ test("root exposes dark chrome design tokens", async ({ page }) => {
     getComputedStyle(document.documentElement).getPropertyValue("--color-signal").trim(),
   );
 
-  expect(bg).not.toBe("");
-  expect(signal).not.toBe("");
+  expect(bg).toBe("#0b1115");
+  expect(signal).toBe("#8df7e3");
 });
