@@ -20,12 +20,24 @@ export function renderSections() {
     </div>
   `;
 
-  document.querySelector('[data-section="projects"]').innerHTML = siteContent.projects
-    .map(
-      (project) =>
-        `<article data-project-card><h2>${project.title}</h2><p>${project.summary}</p></article>`
-    )
-    .join("");
+  document.querySelector('[data-section="projects"]').innerHTML = `
+    <div class="section-shell">
+      <div class="projects-corridor" data-project-corridor data-layout="desktop">
+        ${siteContent.projects
+          .map(
+            (project, index) => `
+              <article class="project-card" data-project-card data-project-index="${index}">
+                <p class="system-label">0${index + 1}</p>
+                <h2>${project.title}</h2>
+                <p>${project.summary}</p>
+                <a href="#contact">${project.linkLabel}</a>
+              </article>
+            `
+          )
+          .join("")}
+      </div>
+    </div>
+  `;
 
   document.querySelector('[data-section="notes"]').innerHTML = siteContent.notes
     .map((note) => `<article data-note-card><h3>${note.title}</h3><p>${note.excerpt}</p></article>`)

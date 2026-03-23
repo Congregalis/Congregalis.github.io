@@ -5,5 +5,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 export const motionDefaults = { duration: 0.8, ease: "power2.out" };
 export const isReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+export const projectCorridorBreakpoint = 768;
 
 export { gsap, ScrollTrigger };
