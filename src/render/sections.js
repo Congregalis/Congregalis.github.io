@@ -12,6 +12,14 @@ export function renderSections() {
     </div>
   `;
 
+  document.querySelector('[data-section="signals"]').innerHTML = `
+    <div class="section-shell signals-shell">
+      <article class="signal-card" data-signal-card data-signal="projects">Projects</article>
+      <article class="signal-card" data-signal-card data-signal="notes">Notes</article>
+      <article class="signal-card" data-signal-card data-signal="photos">Photos</article>
+    </div>
+  `;
+
   document.querySelector('[data-section="projects"]').innerHTML = siteContent.projects
     .map(
       (project) =>
