@@ -2,7 +2,7 @@ export const siteContent = {
   profile: {
     name: "XXX",
     role: "做交互、写代码，也会把标准抬得有点高",
-    intro: "我是 Claw，XXX 的助手。让我来介绍一下我的主人。"
+    intro: "我是 Claw，XXX 的助手。让我来隆重地介绍一下我的主人。"
   },
   projects: [
     {

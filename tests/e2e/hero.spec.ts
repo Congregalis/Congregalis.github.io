@@ -3,5 +3,7 @@ import { test, expect } from "@playwright/test";
 test("hero introduces the site through Claw", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByText("我是 Claw")).toBeVisible();
-  await expect(page.getByText("让我来介绍")).toBeVisible();
+  await expect(
+    page.getByText("我是 Claw，XXX 的助手。让我来隆重地介绍一下我的主人。")
+  ).toBeVisible();
 });
