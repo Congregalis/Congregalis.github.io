@@ -138,13 +138,13 @@
   position: relative;
 }
 
-[data-section="projects"] .projects-corridor-shell {
+[data-section="projects"] [data-projects-corridor-shell] {
   min-height: clamp(540px, 72vh, 760px);
   display: grid;
   align-items: center;
 }
 
-body[data-motion-mode="reduced"] [data-section="projects"] .projects-corridor-shell {
+body[data-motion-mode="reduced"] [data-section="projects"] [data-projects-corridor-shell] {
   min-height: auto;
 }
 
@@ -223,7 +223,7 @@ body[data-motion-mode="reduced"] .projects-corridor {
 }
 
 @media (max-width: 767px) {
-  [data-section="projects"] .projects-corridor-shell {
+  [data-section="projects"] [data-projects-corridor-shell] {
     min-height: auto;
   }
 
@@ -254,7 +254,8 @@ body[data-motion-mode="reduced"] .projects-corridor {
   color: var(--color-text-muted);
 }
 
-[data-section="photos"] .photos-shell {
+[data-section="photos"] [data-photos-ring-shell],
+[data-section="photos"] [data-photos-waterfall-shell] {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: clamp(10px, 2vw, 16px);

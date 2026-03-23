@@ -28,7 +28,7 @@ export function renderSections() {
 
   document.querySelector('[data-section="projects"]').innerHTML = `
     <div class="section-shell projects-prelude" data-projects-prelude></div>
-    <div class="section-shell projects-corridor-shell">
+    <div class="section-shell projects-corridor-shell" data-projects-corridor-shell>
       <div class="projects-corridor" data-project-corridor data-layout="desktop">
         ${siteContent.projects
           .map(
@@ -65,7 +65,11 @@ export function renderSections() {
   `;
 
   document.querySelector('[data-section="photos"]').innerHTML = `
-    <div class="section-shell photos-shell photos-ring-shell" data-photos-ring>
+    <div
+      class="section-shell photos-shell photos-ring-shell"
+      data-photos-ring
+      data-photos-ring-shell
+    >
       ${siteContent.photos
         .slice(0, Math.ceil(siteContent.photos.length / 2))
         .map(
@@ -74,7 +78,11 @@ export function renderSections() {
         )
         .join("")}
     </div>
-    <div class="section-shell photos-shell photos-waterfall-shell" data-photos-waterfall>
+    <div
+      class="section-shell photos-shell photos-waterfall-shell"
+      data-photos-waterfall
+      data-photos-waterfall-shell
+    >
       ${siteContent.photos
         .slice(Math.ceil(siteContent.photos.length / 2))
         .map(
