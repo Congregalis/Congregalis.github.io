@@ -17,3 +17,13 @@ test("notes, photos, and contact sections mark themselves as ready", async ({ pa
   await expect(page.locator('[data-section="contact"]')).toHaveAttribute("data-reveal-ready", "true");
   await expect(page.getByRole("link", { name: "hello@example.com" })).toBeVisible();
 });
+
+test("project CTA can anchor to the contact section", async ({ page }) => {
+  await page.goto("/");
+
+  const contactTarget = page.locator("#contact");
+  await expect(contactTarget).toHaveCount(1);
+
+  await page.locator('[data-project-card] a[href="#contact"]').first().click();
+  await expect(page).toHaveURL(/#contact$/);
+});
