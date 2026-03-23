@@ -27,7 +27,8 @@ export function renderSections() {
   `;
 
   document.querySelector('[data-section="projects"]').innerHTML = `
-    <div class="section-shell">
+    <div class="section-shell projects-prelude" data-projects-prelude></div>
+    <div class="section-shell projects-corridor-shell">
       <div class="projects-corridor" data-project-corridor data-layout="desktop">
         ${siteContent.projects
           .map(
@@ -43,6 +44,7 @@ export function renderSections() {
           .join("")}
       </div>
     </div>
+    <div class="section-shell projects-outro" data-projects-outro></div>
   `;
 
   document.querySelector('[data-section="notes"]').innerHTML = `
@@ -63,8 +65,18 @@ export function renderSections() {
   `;
 
   document.querySelector('[data-section="photos"]').innerHTML = `
-    <div class="section-shell photos-shell">
+    <div class="section-shell photos-shell photos-ring-shell" data-photos-ring>
       ${siteContent.photos
+        .slice(0, Math.ceil(siteContent.photos.length / 2))
+        .map(
+          (photo) =>
+            `<figure data-photo-card><div class="photo-placeholder"></div><figcaption>${photo.title}</figcaption></figure>`
+        )
+        .join("")}
+    </div>
+    <div class="section-shell photos-shell photos-waterfall-shell" data-photos-waterfall>
+      ${siteContent.photos
+        .slice(Math.ceil(siteContent.photos.length / 2))
         .map(
           (photo) =>
             `<figure data-photo-card><div class="photo-placeholder"></div><figcaption>${photo.title}</figcaption></figure>`
