@@ -39,19 +39,31 @@ export function renderSections() {
     </div>
   `;
 
-  document.querySelector('[data-section="notes"]').innerHTML = siteContent.notes
-    .map((note) => `<article data-note-card><h3>${note.title}</h3><p>${note.excerpt}</p></article>`)
-    .join("");
+  document.querySelector('[data-section="notes"]').innerHTML = `
+    <div class="section-shell notes-shell">
+      ${siteContent.notes
+        .map((note) => `<article data-note-card><h3>${note.title}</h3><p>${note.excerpt}</p></article>`)
+        .join("")}
+    </div>
+  `;
 
-  document.querySelector('[data-section="photos"]').innerHTML = siteContent.photos
-    .map(
-      (photo) =>
-        `<figure data-photo-card><div class="photo-placeholder"></div><figcaption>${photo.title}</figcaption></figure>`
-    )
-    .join("");
+  document.querySelector('[data-section="photos"]').innerHTML = `
+    <div class="section-shell photos-shell">
+      ${siteContent.photos
+        .map(
+          (photo) =>
+            `<figure data-photo-card><div class="photo-placeholder"></div><figcaption>${photo.title}</figcaption></figure>`
+        )
+        .join("")}
+    </div>
+  `;
 
   document.querySelector('[data-section="contact"]').innerHTML = `
-    <p>${siteContent.contact.prompt}</p>
-    <a href="mailto:${siteContent.contact.email}">${siteContent.contact.email}</a>
+    <div class="section-shell contact-block">
+      <p class="system-label">contact</p>
+      <h2>Claw 判断你不是随便路过。</h2>
+      <p>${siteContent.contact.prompt}</p>
+      <a href="mailto:${siteContent.contact.email}">${siteContent.contact.email}</a>
+    </div>
   `;
 }

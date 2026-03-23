@@ -6,3 +6,12 @@ test("content sections render the initial project, note, and photo items", async
   await expect(page.locator("[data-note-card]")).toHaveCount(3);
   await expect(page.locator("[data-photo-card]")).toHaveCount(6);
 });
+
+test("notes, photos, and contact sections mark themselves as ready", async ({ page }) => {
+  await page.goto("/");
+  await page.locator('[data-section="notes"]').scrollIntoViewIfNeeded();
+
+  await expect(page.locator('[data-section="notes"]')).toHaveAttribute("data-reveal-ready", "true");
+  await expect(page.locator('[data-section="photos"]')).toHaveAttribute("data-reveal-ready", "true");
+  await expect(page.getByRole("link", { name: "hello@example.com" })).toBeVisible();
+});
