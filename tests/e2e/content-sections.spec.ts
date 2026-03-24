@@ -20,8 +20,23 @@ test("notes, photos, and contact sections mark themselves as ready", async ({ pa
 
 test("notes timeline reveals nodes in reading mode", async ({ page }) => {
   await page.goto("/");
-  await page.locator("[data-notes-timeline]").scrollIntoViewIfNeeded();
-  await expect(page.locator("[data-notes-timeline]")).toHaveAttribute("data-timeline-ready", "true");
+  const timeline = page.locator("[data-notes-timeline]");
+  const firstCard = page.locator("[data-note-card]").first();
+
+  const isBelowFold = await timeline.evaluate((node) => node.getBoundingClientRect().top > window.innerHeight);
+  expect(isBelowFold).toBeTruthy();
+
+  await expect(timeline).toHaveAttribute("data-timeline-ready", "true");
+  await expect.poll(async () => {
+    const opacity = await firstCard.evaluate((node) => Number.parseFloat(getComputedStyle(node).opacity));
+    return Number.isNaN(opacity) ? 1 : opacity;
+  }).toBeLessThan(0.2);
+
+  await timeline.scrollIntoViewIfNeeded();
+  await expect.poll(async () => {
+    const opacity = await firstCard.evaluate((node) => Number.parseFloat(getComputedStyle(node).opacity));
+    return Number.isNaN(opacity) ? 0 : opacity;
+  }).toBeGreaterThan(0.95);
 });
 
 test("project CTA can anchor to the contact section", async ({ page }) => {
@@ -36,6 +51,7 @@ test("project CTA can anchor to the contact section", async ({ page }) => {
 
 test("home timeline links open the full note page", async ({ page }) => {
   await page.goto("/");
+  await page.locator("[data-notes-timeline]").scrollIntoViewIfNeeded();
   const basePrefix = await page.evaluate(() => window.location.pathname);
   await expect(page.getByRole("link", { name: /进入全文/i }).first()).toHaveAttribute(
     "href",

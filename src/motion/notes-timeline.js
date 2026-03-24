@@ -17,11 +17,15 @@ export function initNotesTimeline({ reducedMotion = false } = {}) {
     return;
   }
 
-  gsap.from(items, {
+  gsap.set(items, {
     autoAlpha: 0,
-    y: 20,
-    immediateRender: false,
+    y: 20
+  });
+
+  gsap.to(items, {
+    autoAlpha: 1,
+    y: 0,
     stagger: 0.08,
-    scrollTrigger: { trigger: section, start: "top 80%" }
+    scrollTrigger: { trigger: section, start: "top 80%", once: true }
   });
 }
