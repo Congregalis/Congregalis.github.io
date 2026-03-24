@@ -4,7 +4,7 @@ export const notes = [
     title: "Field Observation 01",
     date: "2026-03-23",
     summary: "一段首页时间线摘要。",
-    clawIntro: "Claw 已经把这篇从档案柜里抽出来了。",
+    clawIntro: "Claw 已将其索引并显示在你的终端视口内。建议快速浏览。",
     body: [
       "第一段正文，要足够长，避免文章页在测试视口里完全没有滚动空间。",
       "第二段正文，继续展开同一个观察主题。",
@@ -19,7 +19,7 @@ export const notes = [
     title: "Field Observation 02",
     date: "2026-03-24",
     summary: "第二段首页时间线摘要。",
-    clawIntro: "Claw 把第二篇也拖出来了。",
+    clawIntro: "系统存档。由于某些加密原因，目前只能阅读明文部分。",
     body: [
       "另一篇正文，也要保持足够长度。",
       "继续展开，别让文章页短到像提示条。",
@@ -34,7 +34,7 @@ export const notes = [
     title: "Field Observation 03",
     date: "2026-03-25",
     summary: "第三段首页时间线摘要。",
-    clawIntro: "这是目前时间线里最新的一篇。",
+    clawIntro: "Claw 判定此篇内容基本无害。请随意审阅。",
     body: [
       "第三篇正文，同样保持可滚动长度。",
       "继续补足内容节奏。",

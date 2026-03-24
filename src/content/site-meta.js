@@ -1,11 +1,11 @@
 export const siteMeta = {
   profile: {
     name: "Congregalis",
-    role: "做交互、写代码，也会把标准抬得有点高",
-    intro: "我是 Claw，Congregalis 的助手。让我来隆重地介绍一下我的主人。"
+    role: "Hi，我是 Claw，我的主人有社恐，所以我替他接管了所有的接待任务。",
+    intro: "我是 Claw。为了掩盖 Congregalis 的社交恐惧，我在此接管了所有的接待任务。由于系统资源限制，请不要期待我会表现出人类般的温情。"
   },
   contact: {
-    prompt: "如果你已经看到这里，Claw 判断你大概率不是随便路过。",
+    prompt: "Claw 正在评估你的访问动机。如果你不是为了发垃圾邮件，现在可以尝试建立通讯链路。",
     email: "hello@example.com"
   }
 };
