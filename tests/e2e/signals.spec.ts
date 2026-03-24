@@ -47,3 +47,9 @@ test("scrolling past the hero reveals the three signal entries", async ({ page }
     })
     .toBeTruthy();
 });
+
+test("signals handoff completes after entering the signal layer", async ({ page }) => {
+  await page.goto("/");
+  await page.locator('[data-section="signals"]').scrollIntoViewIfNeeded();
+  await expect(page.locator('[data-section="signals"]')).toHaveAttribute("data-signals-mode", "handoff-complete");
+});

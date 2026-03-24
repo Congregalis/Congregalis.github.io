@@ -14,6 +14,11 @@ test("hero registers motion state and exposes the floating core", async ({ page 
   await expect(page.locator('[data-section="hero"]')).toHaveAttribute("data-motion-ready", "true");
 });
 
+test("hero marks the upgraded intro sequence as ready", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator('[data-section="hero"]')).toHaveAttribute("data-hero-sequence-ready", "true");
+});
+
 test("hero skips entry animation when prefers-reduced-motion is enabled", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
