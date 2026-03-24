@@ -26,7 +26,7 @@ export function initHero({ reducedMotion = false } = {}) {
 
   if (reducedMotion) {
     if (ripples.length > 0) {
-      gsap.set(ripples, { autoAlpha: 0.16, scale: 1 });
+      gsap.set(ripples, { xPercent: -50, yPercent: -50, autoAlpha: 0.08, scale: 1.4 });
     }
     section.dataset.heroSequencePhase = "complete";
     return;
@@ -34,7 +34,7 @@ export function initHero({ reducedMotion = false } = {}) {
 
   gsap.set(stage, { perspective: 1200 });
   if (ripples.length > 0) {
-    gsap.set(ripples, { transformOrigin: "50% 50%", scale: 0.62, autoAlpha: 0 });
+    gsap.set(ripples, { transformOrigin: "50% 50%", xPercent: -50, yPercent: -50, scale: 0.18, autoAlpha: 0 });
   }
 
   const tl = gsap.timeline({ defaults: motionDefaults });
@@ -98,25 +98,33 @@ export function initHero({ reducedMotion = false } = {}) {
   }, null, "phase-copy+=0.34");
   tl.set(section, { attr: { "data-hero-sequence-phase": "complete" } }, "+=0.22");
 
+  const ambientTl = gsap.timeline({ repeat: -1, yoyo: true, paused: true, defaults: { ease: "sine.inOut" } });
+  ambientTl.to(
+    section,
+    { "--hero-halo-scale": 1.08, "--hero-bg-alpha": 0.86, duration: 3.8 },
+    0
+  );
+
   if (ripples.length > 0) {
     const rippleTl = gsap.timeline({ repeat: -1, paused: true });
     ripples.forEach((ripple, index) => {
-      const offset = index * 0.72;
+      const offset = index * 0.82;
       rippleTl
         .fromTo(
           ripple,
-          { scale: 0.62, autoAlpha: 0 },
-          { scale: 1.02, autoAlpha: 0.42, duration: 0.26, ease: "none", immediateRender: index === 0 },
+          { scale: 0.18, autoAlpha: 0 },
+          { scale: 0.48, autoAlpha: 0.3, duration: 0.32, ease: "none", immediateRender: index === 0 },
           offset
         )
         .to(
           ripple,
-          { scale: 1.56, autoAlpha: 0, duration: 2.5, ease: "power2.out" },
-          offset + 0.08
+          { scale: 4.2, autoAlpha: 0, duration: 6.2, ease: "power2.out" },
+          offset + 0.06
         );
     });
     tl.call(() => rippleTl.play(0), null, "phase-core+=0.42");
   }
+  tl.call(() => ambientTl.play(0), null, "phase-core+=0.42");
 
   const mm = gsap.matchMedia();
   mm.add("(pointer: fine)", () => {

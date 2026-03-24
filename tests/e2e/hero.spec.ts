@@ -4,8 +4,8 @@ test("hero centers the Congregalis wordmark card", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("[data-hero-wordmark]")).toBeVisible();
   await expect(page.locator("[data-hero-wordmark-label]")).toHaveText("Congregalis");
-  await expect(page.getByText("做交互、写代码，也会把标准抬得有点高")).toBeVisible();
-  await expect(page.locator("[data-hero-ripple]")).toHaveCount(3);
+  await expect(page.getByText("我是 Claw。为了掩盖 Congregalis 的社交恐惧，我在此接管了所有的接待任务。")).toBeVisible();
+  await expect(page.locator("[data-hero-ripple]")).toHaveCount(5);
 });
 
 test("hero registers motion state and exposes the floating core", async ({ page }) => {
