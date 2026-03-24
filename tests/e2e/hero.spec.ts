@@ -19,6 +19,26 @@ test("hero marks the upgraded intro sequence as ready", async ({ page }) => {
   await expect(page.locator('[data-section="hero"]')).toHaveAttribute("data-hero-sequence-ready", "true");
 });
 
+test("hero intro advances through phased sequence instead of finishing instantly", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/");
+
+  const section = page.locator('[data-section="hero"]');
+  await expect(section).toHaveAttribute("data-hero-sequence-phase", "background-start");
+
+  await page.waitForTimeout(1800);
+  await expect(section).toHaveAttribute("data-hero-sequence-phase", "core-unfold");
+
+  await page.waitForTimeout(2400);
+  await expect(section).toHaveAttribute("data-hero-sequence-phase", "copy-broadcast");
+
+  await page.waitForTimeout(2600);
+  await expect(section).toHaveAttribute("data-hero-sequence-phase", "signal-response");
+
+  await page.waitForTimeout(2900);
+  await expect(section).toHaveAttribute("data-hero-sequence-phase", "complete");
+});
+
 test("hero skips entry animation when prefers-reduced-motion is enabled", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
