@@ -24,19 +24,13 @@ test("hero intro advances through phased sequence instead of finishing instantly
   await page.goto("/");
 
   const section = page.locator('[data-section="hero"]');
-  await expect(section).toHaveAttribute("data-hero-sequence-phase", "background-start");
+  const getPhase = () => section.getAttribute("data-hero-sequence-phase");
 
-  await page.waitForTimeout(1800);
-  await expect(section).toHaveAttribute("data-hero-sequence-phase", "core-unfold");
-
-  await page.waitForTimeout(2400);
-  await expect(section).toHaveAttribute("data-hero-sequence-phase", "copy-broadcast");
-
-  await page.waitForTimeout(2600);
-  await expect(section).toHaveAttribute("data-hero-sequence-phase", "signal-response");
-
-  await page.waitForTimeout(2900);
-  await expect(section).toHaveAttribute("data-hero-sequence-phase", "complete");
+  await expect.poll(getPhase).toBe("background-start");
+  await expect.poll(getPhase, { timeout: 8_000 }).toBe("core-unfold");
+  await expect.poll(getPhase, { timeout: 8_000 }).toBe("copy-broadcast");
+  await expect.poll(getPhase, { timeout: 8_000 }).toBe("signal-response");
+  await expect.poll(getPhase, { timeout: 8_000 }).toBe("complete");
 });
 
 test("hero skips entry animation when prefers-reduced-motion is enabled", async ({ page }) => {
@@ -47,5 +41,6 @@ test("hero skips entry animation when prefers-reduced-motion is enabled", async 
   const core = page.locator("[data-hero-core]");
 
   await expect(section).toHaveAttribute("data-motion-ready", "true");
+  await expect(section).toHaveAttribute("data-hero-sequence-phase", "complete");
   await expect(core).not.toHaveAttribute("style", /opacity|transform/);
 });

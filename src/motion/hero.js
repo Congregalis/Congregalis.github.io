@@ -22,7 +22,10 @@ export function initHero({ reducedMotion = false } = {}) {
   }
   const traces = gsap.utils.toArray(".hero-signal-trace", stage);
 
-  if (reducedMotion) return;
+  if (reducedMotion) {
+    section.dataset.heroSequencePhase = "complete";
+    return;
+  }
 
   const tl = gsap.timeline({ defaults: motionDefaults });
   tl.set(section, { attr: { "data-hero-sequence-phase": "background-start" } });

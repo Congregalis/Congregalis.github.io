@@ -50,6 +50,34 @@ test("scrolling past the hero reveals the three signal entries", async ({ page }
 
 test("signals handoff completes after entering the signal layer", async ({ page }) => {
   await page.goto("/");
-  await page.locator('[data-section="signals"]').scrollIntoViewIfNeeded();
-  await expect(page.locator('[data-section="signals"]')).toHaveAttribute("data-signals-mode", "handoff-complete");
+  const section = page.locator('[data-section="signals"]');
+
+  await expect(section).toHaveAttribute("data-signals-mode", "idle");
+
+  await page.evaluate(() => {
+    const signalsSection = document.querySelector('[data-section="signals"]');
+    if (!signalsSection) return;
+
+    const trackedModes = [signalsSection.getAttribute("data-signals-mode")];
+    const observer = new MutationObserver(() => {
+      trackedModes.push(signalsSection.getAttribute("data-signals-mode"));
+    });
+    observer.observe(signalsSection, { attributes: true, attributeFilter: ["data-signals-mode"] });
+
+    window.__signalsModeTracking = { trackedModes, observer };
+  });
+
+  await section.scrollIntoViewIfNeeded();
+  await expect(section).toHaveAttribute("data-signals-mode", "handoff-complete");
+
+  const trackedModes = await page.evaluate(() => {
+    const tracking = window.__signalsModeTracking;
+    if (!tracking) return [];
+    tracking.observer.disconnect();
+    return tracking.trackedModes;
+  });
+
+  expect(trackedModes[0]).toBe("idle");
+  expect(trackedModes).toContain("handoff-running");
+  expect(trackedModes[trackedModes.length - 1]).toBe("handoff-complete");
 });
