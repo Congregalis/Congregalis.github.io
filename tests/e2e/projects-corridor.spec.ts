@@ -27,10 +27,39 @@ async function scrollProjectsToProgress(page, progress) {
     const section = document.querySelector('[data-section="projects"]');
     if (!section) return;
 
-    const sectionTop = window.scrollY + section.getBoundingClientRect().top;
+    const clampedProgress = Math.max(0, Math.min(1, nextProgress));
+    if (typeof window.__projectsScrollAnchor !== "number") {
+      window.__projectsScrollAnchor = window.scrollY + section.getBoundingClientRect().top;
+    }
     const scrollDistance = 1800;
-    window.scrollTo(0, sectionTop + scrollDistance * nextProgress);
+    window.scrollTo(0, window.__projectsScrollAnchor + scrollDistance * clampedProgress);
   }, progress);
+}
+
+async function readActiveVisualContrast(page) {
+  return page.evaluate(() => {
+    const corridor = document.querySelector("[data-project-corridor]");
+    if (!corridor) return null;
+
+    const cards = Array.from(corridor.querySelectorAll("[data-project-index]"));
+    const activeCard = cards.find((card) => card.getAttribute("data-card-active") === "true");
+    const inactiveCard = cards.find((card) => card.getAttribute("data-card-active") !== "true");
+    if (!activeCard || !inactiveCard) return null;
+
+    const readScale = (card) => {
+      const transform = window.getComputedStyle(card).transform;
+      if (!transform || transform === "none") return 1;
+      const matrix = new DOMMatrixReadOnly(transform);
+      return Math.hypot(matrix.m11, matrix.m12, matrix.m13);
+    };
+
+    return {
+      activeOpacity: Number.parseFloat(window.getComputedStyle(activeCard).opacity) || 0,
+      inactiveOpacity: Number.parseFloat(window.getComputedStyle(inactiveCard).opacity) || 0,
+      activeScale: readScale(activeCard),
+      inactiveScale: readScale(inactiveCard),
+    };
+  });
 }
 
 test("desktop corridor updates active project and keeps hit target aligned", async ({ page }) => {
@@ -63,6 +92,11 @@ test("desktop corridor updates active project and keeps hit target aligned", asy
   const movedState = await readCorridorState(page);
   expect(movedState?.phase).toBe("corridor");
   expect(movedState?.activeProject).toBe(movedState?.topProject);
+
+  const visualContrast = await readActiveVisualContrast(page);
+  expect(visualContrast).not.toBeNull();
+  expect(visualContrast!.activeOpacity).toBeGreaterThan(visualContrast!.inactiveOpacity + 0.05);
+  expect(visualContrast!.activeScale).toBeGreaterThan(visualContrast!.inactiveScale + 0.02);
 });
 
 test("projects section syncs phase and active card when reversing from outro", async ({ page }) => {

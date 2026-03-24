@@ -49,6 +49,49 @@ export function initProjectsCorridor({ reducedMotion = false } = {}) {
     return Math.round(corridorProgress * (cards.length - 1));
   };
 
+  const applyVisualFromProgress = (progress, activeIndex, phase) => {
+    const corridorStart = 0.2;
+    const corridorEnd = 0.84;
+    const corridorSpan = corridorEnd - corridorStart;
+    const corridorProgress = gsap.utils.clamp(0, 1, (progress - corridorStart) / corridorSpan);
+    const focusIndex = corridorProgress * (cards.length - 1);
+
+    cards.forEach((card, index) => {
+      const isActive = index === activeIndex;
+      let autoAlpha = 0.24;
+      let scale = 0.82;
+      let yPercent = 4;
+      let z = -140;
+      let rotateX = 8;
+
+      if (phase === "prelude") {
+        if (index === 0) {
+          autoAlpha = 1;
+          scale = 1.03;
+          yPercent = 0;
+          z = 0;
+          rotateX = 0;
+        }
+      } else if (phase === "corridor") {
+        const distance = Math.abs(index - focusIndex);
+        const emphasis = Math.max(0, 1 - distance);
+        autoAlpha = 0.28 + emphasis * 0.72;
+        scale = 0.84 + emphasis * 0.16;
+        yPercent = 0;
+        z = -100 + emphasis * 100;
+        rotateX = (1 - emphasis) * 5;
+      } else {
+        autoAlpha = isActive ? 0.98 : 0.9;
+        scale = isActive ? 1 : 0.97;
+        yPercent = 0;
+        z = 0;
+        rotateX = 0;
+      }
+
+      gsap.set(card, { autoAlpha, scale, yPercent, z, rotateX });
+    });
+  };
+
   let lastPhase = "";
   let lastActiveIndex = -1;
   const syncStateFromProgress = (progress) => {
@@ -63,6 +106,7 @@ export function initProjectsCorridor({ reducedMotion = false } = {}) {
       setActiveCard(activeIndex);
       lastActiveIndex = activeIndex;
     }
+    applyVisualFromProgress(progress, activeIndex, phase);
   };
 
   const resetToStacked = () => {
@@ -96,8 +140,6 @@ export function initProjectsCorridor({ reducedMotion = false } = {}) {
     wrapper.dataset.layout = "desktop";
     wrapper.dataset.corridorReady = "true";
 
-    gsap.set(cards, { autoAlpha: 0.24, scale: 0.82, yPercent: 4, z: -140, rotateX: 8 });
-    gsap.set(cards[0], { autoAlpha: 1, scale: 1.03, yPercent: 0, z: 0, rotateX: 0 });
     syncStateFromProgress(0);
 
     const tl = gsap.timeline({
@@ -116,16 +158,7 @@ export function initProjectsCorridor({ reducedMotion = false } = {}) {
       },
     });
 
-    tl.to(cards, { autoAlpha: 0.28, scale: 0.84, yPercent: 0, z: -110, rotateX: 6, duration: 0.24 }, 0);
-    tl.to(cards[0], { autoAlpha: 1, scale: 1, z: 0, rotateX: 0, duration: 0.24 }, 0);
-
-    cards.forEach((card, index) => {
-      const stepPosition = index === 0 ? 0.22 : ">";
-      tl.to(cards, { autoAlpha: 0.28, scale: 0.84, z: -100, rotateX: 5, duration: 0.22 }, "<");
-      tl.to(card, { autoAlpha: 1, scale: 1, z: 0, rotateX: 0, duration: 0.22 }, "<");
-    });
-
-    tl.to(cards, { autoAlpha: 0.94, scale: 0.98, yPercent: 0, z: 0, rotateX: 0, duration: 0.32, stagger: 0.03 });
+    tl.to({}, { duration: 1 });
   });
 
   return () => {
