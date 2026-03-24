@@ -4,7 +4,8 @@ test("content sections render the initial project, note, and photo items", async
   await page.goto("/");
   await expect(page.locator("[data-project-card]")).toHaveCount(3);
   await expect(page.locator("[data-note-card]")).toHaveCount(3);
-  await expect(page.locator("[data-photo-card]")).toHaveCount(6);
+  await expect(page.locator('[data-section="photos"] figure')).toHaveCount(6);
+  await expect(page.locator('[data-photos-waterfall] [data-photo-card]')).toHaveCount(3);
 });
 
 test("notes, photos, and contact sections mark themselves as ready", async ({ page }) => {
