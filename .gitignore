@@ -6,3 +6,4 @@ playwright-report/
 .superpowers/
 .worktrees/
 worktrees/
+test-results/
