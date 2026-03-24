@@ -114,8 +114,8 @@ export function initProjectsCorridor({ reducedMotion = false } = {}) {
     wrapper.dataset.layout = "stacked";
     wrapper.dataset.corridorReady = "true";
     wrapper.dataset.activeProject = "0";
-    lastPhase = "prelude";
-    lastActiveIndex = 0;
+    lastPhase = "";
+    lastActiveIndex = -1;
 
     gsap.set(cards, { clearProps: "all" });
     cards.forEach((card) => {

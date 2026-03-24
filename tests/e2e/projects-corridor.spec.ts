@@ -62,6 +62,31 @@ async function readActiveVisualContrast(page) {
   });
 }
 
+async function readActiveCardsSummary(page) {
+  return page.evaluate(() => {
+    const corridor = document.querySelector("[data-project-corridor]");
+    if (!corridor) return null;
+
+    const cards = Array.from(corridor.querySelectorAll("[data-project-index]"));
+    const activeCards = cards.filter((card) => card.getAttribute("data-card-active") === "true");
+    const activeCard = activeCards[0] ?? null;
+
+    const topCard = cards
+      .map((card) => ({
+        index: card.getAttribute("data-project-index"),
+        zIndex: Number.parseInt(window.getComputedStyle(card).zIndex, 10) || 0,
+      }))
+      .sort((a, b) => b.zIndex - a.zIndex)[0];
+
+    return {
+      activeCount: activeCards.length,
+      activeIndex: activeCard?.getAttribute("data-project-index") ?? null,
+      activePointerEvents: activeCard ? window.getComputedStyle(activeCard).pointerEvents : null,
+      topIndex: topCard?.index ?? null,
+    };
+  });
+}
+
 test("desktop corridor updates active project and keeps hit target aligned", async ({ page }) => {
   await page.goto("/");
   const corridor = page.locator('[data-project-corridor]');
@@ -97,6 +122,30 @@ test("desktop corridor updates active project and keeps hit target aligned", asy
   expect(visualContrast).not.toBeNull();
   expect(visualContrast!.activeOpacity).toBeGreaterThan(visualContrast!.inactiveOpacity + 0.05);
   expect(visualContrast!.activeScale).toBeGreaterThan(visualContrast!.inactiveScale + 0.02);
+});
+
+test("mobile to desktop breakpoint switch restores exactly one interactive active card", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+  const corridor = page.locator('[data-project-corridor]');
+  await expect(corridor).toHaveAttribute("data-layout", "stacked");
+
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.locator("[data-projects-prelude]").scrollIntoViewIfNeeded();
+  await expect(corridor).toHaveAttribute("data-layout", "desktop");
+
+  await expect
+    .poll(async () => {
+      const summary = await readActiveCardsSummary(page);
+      return summary?.activeCount ?? 0;
+    })
+    .toBe(1);
+
+  const summary = await readActiveCardsSummary(page);
+  expect(summary).not.toBeNull();
+  expect(summary!.activeIndex).toBe("0");
+  expect(summary!.topIndex).toBe(summary!.activeIndex);
+  expect(summary!.activePointerEvents).toBe("auto");
 });
 
 test("projects section syncs phase and active card when reversing from outro", async ({ page }) => {
