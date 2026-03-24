@@ -10,6 +10,8 @@ test("home exposes v2 sequencing shells", async ({ page }) => {
   await expect(projectsSection.locator("[data-projects-prelude]")).toHaveCount(1);
   await expect(projectsSection.locator("[data-projects-corridor-shell]")).toHaveCount(1);
   await expect(projectsSection.locator("[data-projects-outro]")).toHaveCount(1);
+  await projectsSection.locator("[data-projects-prelude]").scrollIntoViewIfNeeded();
+  await expect(projectsSection).toHaveAttribute("data-projects-phase", "prelude");
 
   await expect(notesSection.locator("[data-notes-timeline]")).toHaveCount(1);
 

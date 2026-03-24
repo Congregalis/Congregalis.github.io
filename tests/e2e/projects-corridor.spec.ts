@@ -43,6 +43,21 @@ test("desktop corridor updates active project and keeps hit target aligned", asy
   expect(movedState?.activeProject).toBe(movedState?.topProject);
 });
 
+test("projects section exposes prelude and outro phases", async ({ page }) => {
+  await page.goto("/");
+  const section = page.locator('[data-section="projects"]');
+
+  await page.locator("[data-projects-prelude]").scrollIntoViewIfNeeded();
+  await expect(section).toHaveAttribute("data-projects-phase", "prelude");
+
+  await page.evaluate(() => window.scrollBy(0, 2600));
+  await expect
+    .poll(async () => section.getAttribute("data-projects-phase"), {
+      message: "projects phase should eventually reach outro near corridor end",
+    })
+    .toBe("outro");
+});
+
 test("desktop reduced-motion falls back to stacked layout", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
