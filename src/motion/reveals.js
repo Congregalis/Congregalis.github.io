@@ -1,7 +1,7 @@
 import { gsap } from "./motion-config.js";
 
 export function initReveals({ reducedMotion = false } = {}) {
-  const sections = ["notes", "photos", "contact"];
+  const sections = ["photos", "contact"];
 
   sections.forEach((name) => {
     const section = document.querySelector(`[data-section="${name}"]`);
