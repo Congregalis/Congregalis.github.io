@@ -1,5 +1,6 @@
 @import "@fontsource/instrument-serif";
 @import "@fontsource/manrope";
+@import "@fontsource/manrope/800.css";
 @import "@fontsource/ibm-plex-mono";
 @import "./tokens.css";
 @import "./layout.css";

@@ -4,9 +4,21 @@ main > section[data-section] {
   padding: 96px 0;
 }
 
+main > section[data-section="hero"] {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 @media (max-width: 767px) {
   main > section[data-section] {
     width: min(1200px, max(0px, calc(100vw - 32px)));
     padding: 72px 0;
+  }
+
+  main > section[data-section="hero"] {
+    width: 100%;
+    margin: 0;
+    padding: 0;
   }
 }
