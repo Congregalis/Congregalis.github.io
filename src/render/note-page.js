@@ -28,7 +28,15 @@ export function renderNotePage(note) {
         <p class="note-claw-intro">${note.clawIntro}</p>
         <a href="${homeNotesHref()}">返回首页</a>
       </header>
-      <div class="note-progress" data-note-progress></div>
+      <div
+        class="note-progress"
+        data-note-progress
+        role="progressbar"
+        aria-label="阅读进度"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="0"
+      ></div>
       <div class="note-body" data-note-body>
         ${note.body.map((paragraph) => `<p>${paragraph}</p>`).join("")}
       </div>

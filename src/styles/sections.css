@@ -328,16 +328,51 @@ body[data-motion-mode="reduced"] .projects-corridor {
   }
 }
 
-[data-section="notes"] .notes-shell {
+[data-section="notes"] [data-notes-timeline] {
   display: grid;
   gap: clamp(12px, 2.2vw, 18px);
+  position: relative;
+  padding-left: clamp(12px, 2.2vw, 18px);
+}
+
+[data-section="notes"] [data-notes-timeline]::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    rgba(141, 247, 227, 0.15),
+    rgba(141, 247, 227, 0.58),
+    rgba(141, 247, 227, 0.12)
+  );
+  opacity: 0.56;
+}
+
+[data-section="notes"] [data-notes-timeline][data-timeline-ready="true"]::before {
+  opacity: 0.88;
 }
 
 [data-section="notes"] [data-note-card] {
+  position: relative;
   border-radius: 14px;
   border: 1px solid rgba(255, 255, 255, 0.14);
   background: rgba(9, 14, 18, 0.66);
   padding: clamp(14px, 2.2vw, 20px);
+}
+
+[data-section="notes"] [data-note-card]::before {
+  content: "";
+  position: absolute;
+  left: -22px;
+  top: 20px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(141, 247, 227, 0.85);
+  box-shadow: 0 0 0 3px rgba(141, 247, 227, 0.2);
 }
 
 [data-section="notes"] [data-note-card] h3 {
@@ -348,6 +383,15 @@ body[data-motion-mode="reduced"] .projects-corridor {
 [data-section="notes"] [data-note-card] p {
   margin: 0.7rem 0 0;
   color: var(--color-text-muted);
+}
+
+[data-section="notes"] [data-note-card] a {
+  margin-top: 1rem;
+  display: inline-flex;
+  text-decoration: none;
+  color: var(--color-text);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.36);
+  padding-bottom: 2px;
 }
 
 [data-section="photos"] [data-photos-ring-shell],

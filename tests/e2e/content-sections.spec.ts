@@ -18,6 +18,12 @@ test("notes, photos, and contact sections mark themselves as ready", async ({ pa
   await expect(page.getByRole("link", { name: "hello@example.com" })).toBeVisible();
 });
 
+test("notes timeline reveals nodes in reading mode", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("[data-notes-timeline]").scrollIntoViewIfNeeded();
+  await expect(page.locator("[data-notes-timeline]")).toHaveAttribute("data-timeline-ready", "true");
+});
+
 test("project CTA can anchor to the contact section", async ({ page }) => {
   await page.goto("/");
 

@@ -44,6 +44,19 @@ test("note page exposes previous and next navigation", async ({ page }) => {
   );
 });
 
+test("note page reading helper updates while scrolling", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 600 });
+  await page.goto("/notes/field-observation-02/");
+  const progress = page.locator("[data-note-progress]");
+  const scrollable = await page.evaluate(() => document.body.scrollHeight > window.innerHeight);
+  expect(scrollable).toBeTruthy();
+  const before = await progress.getAttribute("aria-valuenow");
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+  await expect
+    .poll(async () => progress.getAttribute("aria-valuenow"))
+    .not.toBe(before);
+});
+
 test("first note uses span placeholder for previous navigation", async ({ page }) => {
   await page.goto("/notes/field-observation-01/");
   await expect(page.locator("[data-note-nav] span")).toHaveCount(1);
