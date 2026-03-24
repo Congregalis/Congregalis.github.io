@@ -22,6 +22,7 @@ test("reduced-motion mode fans out to all motion modules", async ({ page }) => {
 
   await expect(page.locator("body")).toHaveAttribute("data-motion-mode", "reduced");
   await expect(page.locator('[data-project-corridor]')).toHaveAttribute("data-layout", "stacked");
+  await expect(page.locator('[data-section="photos"]')).toHaveAttribute("data-photos-mode", "waterfall");
 
   await expectVisibleEndState(page, "[data-signal-card]");
   await expectVisibleEndState(page, '[data-section="notes"] [data-note-card]');

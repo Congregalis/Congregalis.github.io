@@ -64,7 +64,9 @@ export function renderSections() {
     </div>
   `;
 
-  document.querySelector('[data-section="photos"]').innerHTML = `
+  const photosSection = document.querySelector('[data-section="photos"]');
+  photosSection.dataset.photosMode = "ring";
+  photosSection.innerHTML = `
     <div
       class="section-shell photos-shell photos-ring-shell"
       data-photos-ring
@@ -74,7 +76,7 @@ export function renderSections() {
         .slice(0, Math.ceil(siteContent.photos.length / 2))
         .map(
           (photo) =>
-            `<figure data-photo-card><div class="photo-placeholder"></div><figcaption>${photo.title}</figcaption></figure>`
+            `<figure data-photo-ring-card><div class="photo-placeholder"></div><figcaption>${photo.title}</figcaption></figure>`
         )
         .join("")}
     </div>
@@ -87,7 +89,7 @@ export function renderSections() {
         .slice(Math.ceil(siteContent.photos.length / 2))
         .map(
           (photo) =>
-            `<figure data-photo-card><div class="photo-placeholder"></div><figcaption>${photo.title}</figcaption></figure>`
+            `<figure data-photo-card><div class="photo-placeholder"></div><figcaption data-photo-meta>${photo.title}</figcaption></figure>`
         )
         .join("")}
     </div>

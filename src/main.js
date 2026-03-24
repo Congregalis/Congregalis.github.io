@@ -6,6 +6,7 @@ import { initSignals } from "./motion/signals.js";
 import { initProjectsCorridor } from "./motion/projects-corridor.js";
 import { initReveals } from "./motion/reveals.js";
 import { initNotesTimeline } from "./motion/notes-timeline.js";
+import { initPhotosGallery } from "./motion/photos-gallery.js";
 
 const reducedMotion = setMotionMode();
 
@@ -14,4 +15,5 @@ initHero({ reducedMotion });
 initSignals({ reducedMotion });
 initProjectsCorridor({ reducedMotion });
 initNotesTimeline({ reducedMotion });
+initPhotosGallery({ reducedMotion });
 initReveals({ reducedMotion });
