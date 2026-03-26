@@ -1,27 +1,320 @@
-<!doctype html>
-<html lang="zh-Hans">
-
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="我是 Claw。为了掩盖 Congregalis 的社交恐惧，我在此接管了所有的接待任务。这里收录了他那些由于体力限制而没有被过度设计的作品档案。" />
-  <meta property="og:title" content="Congregalis" />
-  <meta property="og:description" content="暗铬实验室风格的交互式个人网站。" />
-  <meta property="og:image" content="/og-card.svg" />
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <title>Congregalis</title>
-  <script type="module" src="/src/main.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Congregalis | 个人空间</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./styles.css">
 </head>
-
 <body>
-  <main id="app">
-    <section data-section="hero" aria-label="Hero"></section>
-    <section data-section="signals" aria-label="Signals"></section>
-    <section data-section="projects" aria-label="Projects"></section>
-    <section data-section="notes" aria-label="Notes"></section>
-    <section data-section="photos" aria-label="Photos"></section>
-    <section id="contact" data-section="contact" aria-label="Contact"></section>
-  </main>
-</body>
+    <div id="starfield">
+        <canvas id="nebula-canvas"></canvas>
+    </div>
+    
+    <!-- Flashlight Effect Overlay for Dark Mode -->
+    <canvas id="flashlight-canvas"></canvas>
+    
+    <!-- Sunlight Dust Effect for Light Mode -->
+    <canvas id="sunlight-canvas"></canvas>
+    
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-text">C.</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#writing" class="nav-link">Writing</a></li>
+                <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#anime" class="nav-link">Anime</a></li>
+                <li><button id="theme-toggle" class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button></li>
+            </ul>
+            <button class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
 
+    <section class="hero" id="about">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="title-line">Congregalis</span>
+            </h1>
+            <p class="hero-subtitle" id="typewriter-text">
+                <span class="typed-text"></span><span class="cursor-blink">|</span>
+            </p>
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+            </div>
+            <div class="scroll-indicator">
+                <span>Scroll</span>
+                <div class="scroll-line"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section writing-section" id="writing">
+        <div class="container">
+            <h2 class="section-title">随笔 / Writing</h2>
+            <div class="writing-grid">
+                <article class="writing-card">
+                    <div class="writing-date">2026.03.20</div>
+                    <h3 class="writing-title">在混沌中寻找秩序</h3>
+                    <p class="writing-excerpt">关于AI Agents与未来工作方式的思考...当我们把任务交给智能体协作，人类的角色会发生怎样的转变？</p>
+                    <a href="#" class="reading-more">Read more →</a>
+                </article>
+                <article class="writing-card">
+                    <div class="writing-date">2026.02.15</div>
+                    <h3 class="writing-title">日系设计中的留白美学</h3>
+                    <p class="writing-excerpt">从极简主义到侘寂风格，聊聊东方美学对现代设计的影响...</p>
+                    <a href="#" class="reading-more">Read more →</a>
+                </article>
+                <article class="writing-card">
+                    <div class="writing-date">2026.01.08</div>
+                    <h3 class="writing-title">摄影：捕捉瞬间的情绪</h3>
+                    <p class="writing-excerpt">街头摄影中的偶然性，如何在平凡场景中发现不平凡的故事...</p>
+                    <a href="#" class="reading-more">Read more →</a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section gallery-section" id="gallery">
+        <div class="container">
+            <h2 class="section-title">影集 / Gallery</h2>
+            <div class="gallery-grid" id="gallery-grid">
+                <div class="gallery-item" data-type="image" data-src="https://picsum.photos/seed/city1/1200/800.jpg">
+                    <img src="https://picsum.photos/seed/city1/400/300.jpg" alt="城市街头">
+                    <div class="gallery-overlay">
+                        <span>城市街头</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-type="image" data-src="https://picsum.photos/seed/nature1/800/1200.jpg">
+                    <img src="https://picsum.photos/seed/nature1/400/600.jpg" alt="林间小径" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span>林间小径</span>
+                    </div>
+                </div>
+                <!-- Video Example -->
+                <div class="gallery-item" data-type="video" data-src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4">
+                    <img src="https://picsum.photos/seed/video1/400/300.jpg" alt="示例视频">
+                    <div class="gallery-overlay video-overlay">
+                        <i class="fas fa-play-circle"></i>
+                        <span>示例视频</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-type="image" data-src="https://picsum.photos/seed/night1/1200/800.jpg">
+                    <img src="https://picsum.photos/seed/night1/400/300.jpg" alt="夜景" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span>城市夜景</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-type="image" data-src="https://picsum.photos/seed/coffee1/800/1200.jpg">
+                    <img src="https://picsum.photos/seed/coffee1/400/600.jpg" alt="街角咖啡馆" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span>街角咖啡馆</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-type="image" data-src="https://picsum.photos/seed/sea1/1200/800.jpg">
+                    <img src="https://picsum.photos/seed/sea1/400/300.jpg" alt="海边" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span>冬日海边</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-type="image" data-src="https://picsum.photos/seed/book1/800/1200.jpg">
+                    <img src="https://picsum.photos/seed/book1/400/600.jpg" alt="阅读角落" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span>阅读角落</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section projects-section" id="projects">
+        <div class="container">
+            <h2 class="section-title">项目 / Projects</h2>
+            <div class="projects-list">
+                <div class="project-item">
+                    <div class="project-info">
+                        <h3 class="project-title">AI Agent 协作框架</h3>
+                        <p class="project-description">一个基于多智能体协作的任务编排框架，让多个AI Agent自动分工完成复杂任务。支持动态规划和错误自修复。</p>
+                        <div class="project-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">LangChain</span>
+                            <span class="tag">AutoGen</span>
+                        </div>
+                        <a href="#" class="project-link">View on GitHub →</a>
+                    </div>
+                    <div class="project-image">
+                        <img src="https://picsum.photos/seed/aiagent/600/400.jpg" alt="AI Agent Project">
+                    </div>
+                </div>
+                <div class="project-item">
+                    <div class="project-info">
+                        <h3 class="project-title">极简摄影博客</h3>
+                        <p class="project-description">一个基于静态生成的摄影博客网站，专注于图片展示和阅读体验，零JavaScript依赖。</p>
+                        <div class="project-tags">
+                            <span class="tag">HTML/CSS</span>
+                            <span class="tag">Static Site</span>
+                            <span class="tag">Minimal</span>
+                        </div>
+                        <a href="#" class="project-link">View Demo →</a>
+                    </div>
+                    <div class="project-image">
+                        <img src="https://picsum.photos/seed/blog/600/400.jpg" alt="Blog Project">
+                    </div>
+                </div>
+                <div class="project-item">
+                    <div class="project-info">
+                        <h3 class="project-title">动漫追番日历</h3>
+                        <p class="project-description">自动追踪新番更新，同步追剧进度，支持自定义标签和提醒功能。</p>
+                        <div class="project-tags">
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">CSS Grid</span>
+                            <span class="tag">API</span>
+                        </div>
+                        <a href="#" class="project-link">View Project →</a>
+                    </div>
+                    <div class="project-image">
+                        <img src="https://picsum.photos/seed/anime/600/400.jpg" alt="Anime Project">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section anime-section" id="anime">
+        <div class="container">
+            <h2 class="section-title">追番 / Currently Watching</h2>
+            <div class="anime-grid">
+                <div class="anime-card">
+                    <div class="anime-poster">
+                        <img src="https://picsum.photos/seed/anime1/300/400.jpg" alt="正在追的番1">
+                        <div class="anime-badge">Ongoing</div>
+                    </div>
+                    <div class="anime-info">
+                        <h4 class="anime-title">葬送的芙莉莲</h4>
+                        <div class="anime-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="anime-episode">Episode 28 / 28</p>
+                    </div>
+                </div>
+                <div class="anime-card">
+                    <div class="anime-poster">
+                        <img src="https://picsum.photos/seed/anime2/300/400.jpg" alt="正在追的番2">
+                        <div class="anime-badge">Ongoing</div>
+                    </div>
+                    <div class="anime-info">
+                        <h4 class="anime-title">间谍过家家</h4>
+                        <div class="anime-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <p class="anime-episode">Season 2 · Episode 12</p>
+                    </div>
+                </div>
+                <div class="anime-card">
+                    <div class="anime-poster">
+                        <img src="https://picsum.photos/seed/anime3/300/400.jpg" alt="正在追的番3">
+                        <div class="anime-badge">Completed</div>
+                    </div>
+                    <div class="anime-info">
+                        <h4 class="anime-title">进击的巨人</h4>
+                        <div class="anime-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="anime-episode">Final Season · Complete</p>
+                    </div>
+                </div>
+                <div class="anime-card">
+                    <div class="anime-poster">
+                        <img src="https://picsum.photos/seed/anime4/300/400.jpg" alt="正在追的番4">
+                        <div class="anime-badge">Ongoing</div>
+                    </div>
+                    <div class="anime-info">
+                        <h4 class="anime-title">蓝锁</h4>
+                        <div class="anime-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p class="anime-episode">Season 2 · Episode 10</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>© 2026 Congregalis. All rights reserved.</p>
+                <a href="https://deerflow.tech" target="_blank" class="deerflow-badge">Created By Deerflow</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lightbox Gallery Modal -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-overlay"></div>
+        <div class="lightbox-container">
+            <!-- Close Button -->
+            <button class="lightbox-close" aria-label="关闭">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <!-- Navigation Buttons -->
+            <button class="lightbox-nav lightbox-prev" aria-label="上一张">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="lightbox-nav lightbox-next" aria-label="下一张">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            
+            <!-- Media Container -->
+            <div class="lightbox-media-wrapper">
+                <img src="" alt="" id="lightbox-image" class="lightbox-media">
+                <video id="lightbox-video" class="lightbox-media" controls loop muted playsinline>
+                    <source src="" type="video/mp4">
+                </video>
+            </div>
+            
+            <!-- Caption -->
+            <div class="lightbox-caption">
+                <span class="lightbox-counter">
+                    <span id="lightbox-current">1</span> / <span id="lightbox-total">0</span>
+                </span>
+                <span id="lightbox-title" class="lightbox-title"></span>
+            </div>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
 </html>
