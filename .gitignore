@@ -1,9 +1,17 @@
-.DS_Store
 node_modules/
+.DS_Store
+
+# Local build artifacts
 dist/
-playwright-report/
-.playwright/
-.superpowers/
+data/
+writings/
+output/
+
+# Local tooling caches
+.vite/
 .worktrees/
-worktrees/
-test-results/
+**/__pycache__/
+*.py[cod]
+
+# Logs
+*.log

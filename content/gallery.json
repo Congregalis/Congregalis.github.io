@@ -1,0 +1,52 @@
+[
+  {
+    "title": "2016绝杀",
+    "type": "image",
+    "src": "assets/gallery/2016-irving.WEBP",
+    "thumb": "assets/gallery/2016-irving.WEBP",
+    "alt": "2016绝杀"
+  },
+  {
+    "title": "Best小牛",
+    "type": "image",
+    "src": "assets/gallery/best-maver.JPG",
+    "thumb": "assets/gallery/best-maver.JPG",
+    "alt": "Best小牛"
+  },
+  {
+    "title": "示例视频",
+    "type": "video",
+    "src": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    "thumb": "https://picsum.photos/seed/video1/400/300.jpg",
+    "poster": "https://picsum.photos/seed/video1/1200/800.jpg",
+    "alt": "示例视频"
+  },
+  {
+    "title": "最爱的游戏",
+    "type": "image",
+    "src": "assets/gallery/最爱的游戏.PNG",
+    "thumb": "assets/gallery/最爱的游戏.PNG",
+    "alt": "最爱的游戏"
+  },
+  {
+    "title": "家猫",
+    "type": "image",
+    "src": "assets/gallery/miaomiao.HEIC",
+    "thumb": "assets/gallery/miaomiao.HEIC",
+    "alt": "家猫"
+  },
+  {
+    "title": "ai还是太好用了",
+    "type": "image",
+    "src": "assets/gallery/rem.png",
+    "thumb": "assets/gallery/rem.png",
+    "alt": "ai还是太好用了"
+  },
+  {
+    "title": "阅读角落",
+    "type": "image",
+    "src": "https://picsum.photos/seed/book1/800/1200.jpg",
+    "thumb": "https://picsum.photos/seed/book1/400/600.jpg",
+    "alt": "阅读角落"
+  }
+]

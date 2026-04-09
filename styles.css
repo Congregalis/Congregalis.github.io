@@ -161,6 +161,7 @@ body {
 .logo {
     display: flex;
     align-items: center;
+    text-decoration: none;
 }
 
 .logo-text {
@@ -364,6 +365,21 @@ body {
     margin-bottom: 48px;
     text-align: center;
     letter-spacing: 0.05em;
+}
+
+.content-status {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 15px;
+    padding: 16px 0 0;
+}
+
+.content-status.is-hidden {
+    display: none;
+}
+
+.content-status.is-error {
+    color: #c65d56;
 }
 
 /* ========== Writing Section ========== */
@@ -697,6 +713,174 @@ body {
     border-color: var(--accent-color);
 }
 
+/* ========== Article Page ========== */
+.article-main {
+    padding: 140px 0 96px;
+    position: relative;
+    z-index: 1;
+}
+
+.article-shell .container {
+    max-width: 900px;
+}
+
+.article-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+    color: var(--accent-color);
+    text-decoration: none;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    transition: var(--transition);
+}
+
+.article-back:hover {
+    color: var(--accent-light);
+    transform: translateX(-4px);
+}
+
+.article-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    box-shadow: var(--shadow-md);
+    padding: 56px;
+}
+
+.article-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.article-date {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    color: var(--accent-color);
+    margin-bottom: 16px;
+}
+
+.article-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(36px, 6vw, 54px);
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 16px;
+}
+
+.article-excerpt {
+    max-width: 640px;
+    margin: 0 auto;
+    color: var(--text-secondary);
+    font-size: 18px;
+    line-height: 1.9;
+}
+
+.article-cover {
+    margin-bottom: 40px;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.article-cover img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.article-content {
+    font-size: 18px;
+    line-height: 1.95;
+    color: var(--text-primary);
+}
+
+.article-content > * + * {
+    margin-top: 1.2em;
+}
+
+.article-content h2,
+.article-content h3,
+.article-content h4 {
+    font-family: 'Noto Serif SC', serif;
+    line-height: 1.35;
+    margin-top: 2em;
+    margin-bottom: 0.6em;
+}
+
+.article-content h2 {
+    font-size: 30px;
+    font-weight: 400;
+}
+
+.article-content h3 {
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.article-content p,
+.article-content ul,
+.article-content ol,
+.article-content blockquote,
+.article-content pre {
+    color: var(--text-primary);
+}
+
+.article-content ul,
+.article-content ol {
+    padding-left: 1.4em;
+}
+
+.article-content li + li {
+    margin-top: 0.45em;
+}
+
+.article-content a {
+    color: var(--accent-color);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+}
+
+.article-content blockquote {
+    padding: 20px 24px;
+    border-left: 3px solid var(--accent-color);
+    background-color: var(--bg-secondary);
+    border-radius: 0 16px 16px 0;
+    color: var(--text-secondary);
+}
+
+.article-content code {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.9em;
+    background-color: var(--bg-secondary);
+    padding: 2px 6px;
+    border-radius: 6px;
+}
+
+.article-content pre {
+    padding: 20px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    overflow-x: auto;
+}
+
+.article-content pre code {
+    background-color: transparent;
+    padding: 0;
+}
+
+.article-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 32px auto;
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+}
+
 /* ========== Lightbox Gallery ========== */
 .lightbox {
     position: fixed;
@@ -980,6 +1164,24 @@ body {
     .writing-card {
         padding: 24px;
     }
+
+    .article-main {
+        padding: 112px 0 72px;
+    }
+
+    .article-card {
+        padding: 32px 24px;
+        border-radius: 20px;
+    }
+
+    .article-title {
+        font-size: 34px;
+    }
+
+    .article-excerpt,
+    .article-content {
+        font-size: 16px;
+    }
 }
 
 /* ========== Loading Animation ========== */
@@ -1019,4 +1221,3 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--accent-light);
 }
-
