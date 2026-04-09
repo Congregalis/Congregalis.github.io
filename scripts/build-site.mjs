@@ -11,7 +11,8 @@ const copies = [
   'favicon.svg',
   'data',
   'writings',
-  'public'
+  'public',
+  'assets'
 ];
 
 async function pathExists(targetPath) {

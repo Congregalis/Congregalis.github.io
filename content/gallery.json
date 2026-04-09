@@ -2,15 +2,15 @@
   {
     "title": "2016绝杀",
     "type": "image",
-    "src": "assets/gallery/2016-irving.WEBP",
-    "thumb": "assets/gallery/2016-irving.WEBP",
+    "src": "assets/gallery/2016-irving.webp",
+    "thumb": "assets/gallery/2016-irving.webp",
     "alt": "2016绝杀"
   },
   {
     "title": "Best小牛",
     "type": "image",
-    "src": "assets/gallery/best-maver.JPG",
-    "thumb": "assets/gallery/best-maver.JPG",
+    "src": "assets/gallery/best-maver.jpg",
+    "thumb": "assets/gallery/best-maver.jpg",
     "alt": "Best小牛"
   },
   {
@@ -24,15 +24,15 @@
   {
     "title": "最爱的游戏",
     "type": "image",
-    "src": "assets/gallery/最爱的游戏.PNG",
-    "thumb": "assets/gallery/最爱的游戏.PNG",
+    "src": "assets/gallery/favorite-game.png",
+    "thumb": "assets/gallery/favorite-game.png",
     "alt": "最爱的游戏"
   },
   {
     "title": "家猫",
     "type": "image",
-    "src": "assets/gallery/miaomiao.HEIC",
-    "thumb": "assets/gallery/miaomiao.HEIC",
+    "src": "assets/gallery/miaomiao.jpg",
+    "thumb": "assets/gallery/miaomiao.jpg",
     "alt": "家猫"
   },
   {
