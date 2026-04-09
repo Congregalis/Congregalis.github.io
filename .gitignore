@@ -3,8 +3,8 @@ node_modules/
 
 # Local build artifacts
 dist/
-data/
-writings/
+/data/
+/writings/
 output/
 
 # Local tooling caches
